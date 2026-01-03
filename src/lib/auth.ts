@@ -27,12 +27,15 @@ export const auth = betterAuth({
   },
   socialProviders: {
     google: {
+      prompt: "select_account consent", // ? if i turn on refresh token
+      accessType: "offline", // ? if i turn on refresh token
       clientId: config.google_client_id as string,
       clientSecret: config.google_client_secret as string,
     },
   },
   emailVerification: {
     sendOnSignUp: true,
+    autoSignInAfterVerification: true,
     sendVerificationEmail: async ({ user, url, token }) => {
       try {
         const verificationToken = `${config.app_url}/verify-email?token=${token}`;
